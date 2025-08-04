@@ -20,7 +20,7 @@ The `MockWebServer` in package `th.mfu` serves the web server in our system. It 
 4. Finally, close the client socket 
 5. Study the code in `main()` and tell me What it does?
 ```
- write your through here.
+ The main() function will start two mock web servers on ports 8080 and 8081 simultaneously, and will wait for the user to press any key to stop all servers and end the program.
 ```
 6. Run the `main()`, point the web browser to `http://localhost:8080` and `http://localhost:8081`
 It should shows a simple HTML with the word such as  `Hello, Web! on Port 8080`.
@@ -52,7 +52,27 @@ Think about the following,  modify the code to experiment it and put your though
 - What would be the benefit of running many instances?
 
 ```
-  Your thought here...
+  1. Change from 8080 to 9090 in main() or MockWebServerTest. ex: new Thread(new MockWebServer(9090)).start();
+
+  2.You can create multiple threads and use different ports, such as:
+  new Thread(new MockWebServer(8080)).start();
+  new Thread(new MockWebServer(8081)).start();
+  new Thread(new MockWebServer(8082)).start();
+  new Thread(new MockWebServer(9000)).start();
+
+  3.You can edit the response variable in MockWebServer to include any HTML you want, such as:
+  String response = "HTTP/1.1 200 OK\r\nContent-Type: text/html\r\n\r\n" +
+  "<html><body>" +
+  "<h1>Hello, Web!</h1>" +
+  "<p>This is a sample paragraph.</p>" +
+  "<table border='1'><tr><td>Row1</td></tr></table>" +
+  "<img src='https://example.com/image.png' alt='Image'>" +
+  "</body></html>";
+
+  4. Load Balancing: Distribute requests across multiple servers for speed and stability.
+  Testing Multiple Environments: For example, test dev, staging, and prod ports.
+  User Simulation: Simulate multiple users connecting simultaneously.
+  Service Isolation: Each port represents a different microservice or component.
 ```
 **Please push the code back to Github to submit this lab**
 After you push, ensure you have green checkmark on the repository.
